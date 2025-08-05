@@ -1,8 +1,8 @@
 @host = http://localhost
 @port = 5026
-@Restaurants.API_HostAddress = {{host}}:{{port}}
+@RestaurantsAPI = {{host}}:{{port}}
 
-GET {{Restaurants.API_HostAddress}}/weatherforecast/
+GET {{RestaurantsAPI}}/api/restaurants
 Accept: application/json
 
 ###

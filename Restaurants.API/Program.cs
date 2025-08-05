@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// Register the application services
+builder.Services.AddApplicationServices();
 // Register the infrastructure services
 builder.Services.AddInfrastructure(builder.Configuration);
 
