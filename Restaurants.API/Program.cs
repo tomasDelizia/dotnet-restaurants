@@ -1,17 +1,18 @@
+using Restaurants.Application.Extensions;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+var config = builder.Configuration;
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 // Register the application services
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(config);
 // Register the infrastructure services
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(config);
 
 var app = builder.Build();
 
