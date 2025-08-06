@@ -1,7 +1,7 @@
 @host = http://localhost
 @port = 5026
 @RestaurantsAPI = {{host}}:{{port}}
-@restaurantId = 85567a11-14ab-4f8a-a02d-08ddd419a811
+@restaurantId = 5a06b102-b6dc-466b-7489-08ddd4dbe6cb
 
 GET {{RestaurantsAPI}}/api/restaurants
 Accept: application/json
@@ -32,3 +32,14 @@ Content-Type: application/json
 
 DELETE {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
 Accept: application/json
+
+###
+
+PATCH {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
+Content-Type: application/json
+
+{
+    "Name": "Gino's Updated",
+    "Description": "A culinary experience like no other",
+    "HasDelivery": false
+}
