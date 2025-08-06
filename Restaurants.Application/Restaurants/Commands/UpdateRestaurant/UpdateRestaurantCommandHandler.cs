@@ -12,7 +12,7 @@ public class UpdateRestaurantCommandHandler(
 {
     public async Task<bool> Handle(UpdateRestaurantCommand request, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Updating restaurant with id {}", request.Id);
+        logger.LogInformation("Updating restaurant of id {RequestId} with {@Request}", request.Id, request);
         var restaurant = await restaurantsRepository.GetByIdAsync(request.Id);
         if (restaurant == null) return false;
         // Gets all the properties of the request and add them to the entity.

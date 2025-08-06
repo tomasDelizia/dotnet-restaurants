@@ -13,7 +13,10 @@ public static class ServiceCollectionExtensions
     {
         var connectionString = configuration.GetConnectionString("RestaurantsDb");
         // By default, DbContext is added as a scoped dependency.
-        services.AddDbContext<RestaurantsDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddDbContext<RestaurantsDbContext>(options => options
+            .UseSqlServer(connectionString)
+            .EnableSensitiveDataLogging()
+        );
 
         // Add seeders
         services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
