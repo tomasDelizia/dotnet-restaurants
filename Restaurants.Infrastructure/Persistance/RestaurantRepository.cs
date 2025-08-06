@@ -25,4 +25,10 @@ internal class RestaurantRepository(RestaurantsDbContext dbContext) : IRestauran
         // Id will be set after saving to the DB.
         return restaurant.Id;
     }
+
+    public async Task DeleteAsync(Restaurant restaurant)
+    {
+        dbContext.Restaurants.Remove(restaurant);
+        await dbContext.SaveChangesAsync();
+    }
 }
