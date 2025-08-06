@@ -1,8 +1,12 @@
 @host = http://localhost
 @port = 5026
 @RestaurantsAPI = {{host}}:{{port}}
+@restaurantId = 85567a11-14ab-4f8a-a02d-08ddd419a811
 
 GET {{RestaurantsAPI}}/api/restaurants
 Accept: application/json
 
 ###
+
+GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
+Accept: application/json

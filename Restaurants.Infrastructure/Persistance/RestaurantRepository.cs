@@ -10,4 +10,9 @@ internal class RestaurantRepository(RestaurantsDbContext dbContext) : IRestauran
     {
         return await dbContext.Restaurants.ToListAsync();
     }
+
+    public async Task<Restaurant?> GetByIdAsync(Guid id)
+    {
+        return await dbContext.Restaurants.FirstOrDefaultAsync(r => r.Id == id);
+    }
 }
