@@ -25,5 +25,5 @@ Content-Type: application/json
     "ContactNumber": "555-123-4567",
     "City": "Metropolis",
     "Street": "456 Gourmet Avenue",
-    "PostalCode": "54321"
+    "PostalCode": "54-321"
 }
