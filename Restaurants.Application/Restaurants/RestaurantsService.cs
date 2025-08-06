@@ -1,18 +1,19 @@
 using Microsoft.Extensions.Logging;
+using Restaurants.Application.Restaurants.Dtos;
 using Restaurants.Domain;
-using Restaurants.Domain.Entities;
 
 namespace Restaurants.Application.Restaurants;
 
 internal class RestaurantsService(IRestaurantsRepository restaurantsRepository, ILogger<RestaurantsService> logger) : IRestaurantsService
 {
-    public async Task<IEnumerable<Restaurant>> GetAllRestaurants()
+    public async Task<IEnumerable<RestaurantDto>> GetAllRestaurants()
     {
         logger.LogInformation("Getting all restaurants");
-        return await restaurantsRepository.GetAllAsync();
+        var restaurants = await restaurantsRepository.GetAllAsync();
+        return restaurants.Select(RestaurantDto.FromEntity);
     }
 
-    public async Task<Restaurant?> GetRestaurantById(string id)
+    public async Task<RestaurantDto?> GetRestaurantById(string id)
     {
         if (!Guid.TryParse(id, out var guidId))
         {
@@ -20,6 +21,7 @@ internal class RestaurantsService(IRestaurantsRepository restaurantsRepository, 
             return null;
         }
         logger.LogInformation("Getting restaurant with id {}", guidId);
-        return await restaurantsRepository.GetByIdAsync(guidId);
+        var restaurant = await restaurantsRepository.GetByIdAsync(guidId);
+        return restaurant != null ? RestaurantDto.FromEntity(restaurant) : null;
     }
 }
