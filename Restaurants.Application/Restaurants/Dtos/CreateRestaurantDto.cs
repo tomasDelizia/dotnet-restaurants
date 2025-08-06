@@ -1,5 +1,6 @@
 namespace Restaurants.Application.Restaurants.Dtos;
 
+[Obsolete("Use CreateRestaurantCommand instead")]
 public class CreateRestaurantDto
 {
     // [StringLength(100, MinimumLength = 3)]

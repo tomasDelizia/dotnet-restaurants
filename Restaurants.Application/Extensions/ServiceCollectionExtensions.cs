@@ -11,11 +11,15 @@ public static class ServiceCollectionExtensions
     public static void AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         var appAssembly = typeof(ServiceCollectionExtensions).Assembly;
+        var licenseKey = configuration["LuckyPennySoftware:LicenseKey"];
 
         // Add Services
-        services.AddScoped<IRestaurantsService, RestaurantsService>();
-
-        var licenseKey = configuration["LuckyPennySoftware:LicenseKey"];
+        // services.AddScoped<IRestaurantsService, RestaurantsService>();
+        services.AddMediatR(cfg =>
+        {
+            cfg.LicenseKey = licenseKey;
+            cfg.RegisterServicesFromAssemblies(appAssembly);
+        });
 
         // Add mapper
         services.AddAutoMapper(cfg =>
