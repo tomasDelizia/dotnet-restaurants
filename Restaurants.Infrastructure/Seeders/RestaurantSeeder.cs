@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+using Restaurants.Domain.Constants;
 using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Persistance;
 
@@ -8,15 +10,29 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
     public async Task Seed()
     {
         if (!await dbContext.Database.CanConnectAsync()) return;
-        if (dbContext.Restaurants.Any()) return;
-        var restaurants = GetRestaurants();
-        dbContext.Restaurants.AddRange(restaurants);
-        await dbContext.SaveChangesAsync();
+        if (!dbContext.Restaurants.Any())
+        {
+            var restaurants = GetRestaurants();
+            dbContext.Restaurants.AddRange(restaurants);
+            await dbContext.SaveChangesAsync();
+        }
+        if (!dbContext.Roles.Any())
+        {
+            var roles = GetRoles();
+            dbContext.Roles.AddRange(roles);
+            await dbContext.SaveChangesAsync();
+        }
     }
 
-    private static List<Restaurant> GetRestaurants()
-    {
-        List<Restaurant> restaurants = [
+    private static IEnumerable<IdentityRole> GetRoles()
+    => [
+            new(UserRoles.User),
+            new(UserRoles.Owner),
+            new(UserRoles.Admin),
+        ];
+
+    private static IEnumerable<Restaurant> GetRestaurants()
+    => [
             new()
             {
                 Name = "KFC",
@@ -65,6 +81,4 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
                 }
             }
         ];
-        return restaurants;
-    }
 }
