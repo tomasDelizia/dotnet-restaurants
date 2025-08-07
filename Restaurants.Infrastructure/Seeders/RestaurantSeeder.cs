@@ -26,9 +26,15 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
 
     private static IEnumerable<IdentityRole> GetRoles()
     => [
-            new(UserRoles.User),
-            new(UserRoles.Owner),
-            new(UserRoles.Admin),
+            new(UserRoles.User) {
+                NormalizedName = UserRoles.User.ToUpper()
+            },
+            new(UserRoles.Owner) {
+                NormalizedName = UserRoles.Owner.ToUpper()
+            },
+            new(UserRoles.Admin) {
+                NormalizedName = UserRoles.Admin.ToUpper()
+            },
         ];
 
     private static IEnumerable<Restaurant> GetRestaurants()
