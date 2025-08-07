@@ -1,3 +1,4 @@
+using Microsoft.OpenApi.Models;
 using Restaurants.API.Middleware;
 using Restaurants.Application.Extensions;
 using Restaurants.Domain.Entities;
@@ -42,7 +43,8 @@ await seeder.Seed();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference(options => options
+    .AddPreferredSecuritySchemes("Bearer"));
 }
 
 // Define Middleware pipiline to use in order
@@ -55,7 +57,7 @@ app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
-app.MapIdentityApi<User>();
+app.MapGroup("api/identity").MapIdentityApi<User>();
 
 app.UseAuthorization();
 
