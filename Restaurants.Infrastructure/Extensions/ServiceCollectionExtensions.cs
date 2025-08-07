@@ -1,3 +1,4 @@
+using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,7 @@ public static class ServiceCollectionExtensions
         var connectionString = configuration.GetConnectionString("RestaurantsDb");
         // By default, DbContext is added as a scoped dependency.
         services.AddDbContext<RestaurantsDbContext>(options => options
-            .UseSqlServer(connectionString)
+            .UseSqlServer(connectionString, options => options.EnableRetryOnFailure())
             .EnableSensitiveDataLogging()
         );
 
