@@ -2,6 +2,7 @@
 @port = 5026
 @RestaurantsAPI = {{host}}:{{port}}
 @restaurantId = 5a06b102-b6dc-466b-7489-08ddd4dbe6cb
+@token = 
 
 GET {{RestaurantsAPI}}/api/restaurants
 Accept: application/json
@@ -73,7 +74,7 @@ Accept: application/json
 
 ###
 
-POST {{RestaurantsAPI}}/register
+POST {{RestaurantsAPI}}/api/identity/register
 Content-Type: application/json
 
 {
@@ -83,10 +84,21 @@ Content-Type: application/json
 
 ###
 
-POST {{RestaurantsAPI}}/login
+POST {{RestaurantsAPI}}/api/identity/login
 Content-Type: application/json
 
 {
     "email": "testuser@test.com",
     "password": "MyP@ssword123"
+}
+
+###
+
+PATCH {{RestaurantsAPI}}/api/identity/user
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "DateOfBirth": "2001-05-29",
+    "Nationality": "Argentinian"
 }
