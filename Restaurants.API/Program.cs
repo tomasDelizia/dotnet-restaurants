@@ -28,6 +28,7 @@ builder.Host.UseSerilog((context, cfg) =>
 );
 // Add error handling middleware
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<TimeLoggingMiddleware>();
 
 var app = builder.Build();
 
@@ -46,6 +47,8 @@ if (app.Environment.IsDevelopment())
 // Define Middleware pipiline to use in order
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseMiddleware<TimeLoggingMiddleware>();
 
 app.UseSerilogRequestLogging();
 
