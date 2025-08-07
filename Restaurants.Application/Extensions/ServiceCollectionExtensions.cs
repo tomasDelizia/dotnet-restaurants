@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Restaurants.Application.Restaurants;
 using FluentValidation;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
+using Restaurants.Application.Users;
 
 namespace Restaurants.Application.Extensions;
 
@@ -31,5 +32,9 @@ public static class ServiceCollectionExtensions
         services
         .AddValidatorsFromAssembly(appAssembly)
         .AddFluentValidationAutoValidation();
+
+        // Add user context and http context accesor to retrieve authenticated user.
+        services.AddScoped<IUserContext, UserContext>();
+        services.AddHttpContextAccessor();
     }
 }
