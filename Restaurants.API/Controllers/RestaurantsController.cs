@@ -44,8 +44,8 @@ namespace Restaurants.API.Controllers
         public async Task<IActionResult> DeleteRestaurant([FromRoute] Guid id)
         {
             var command = new DeleteRestaurantCommand(id);
-            var isDeleted = await mediator.Send(command);
-            return isDeleted ? NoContent() : NotFound();
+            await mediator.Send(command);
+            return NoContent();
         }
 
         [HttpPatch("{id}")]
@@ -56,8 +56,8 @@ namespace Restaurants.API.Controllers
             [FromBody] UpdateRestaurantCommand command)
         {
             command.Id = id;
-            var isUpdated = await mediator.Send(command);
-            return isUpdated ? NoContent() : NotFound();
+            await mediator.Send(command);
+            return NoContent();
         }
     }
 }
