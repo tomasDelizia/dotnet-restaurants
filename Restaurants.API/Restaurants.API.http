@@ -70,3 +70,23 @@ Accept: application/json
 
 DELETE {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes
 Accept: application/json
+
+###
+
+POST {{RestaurantsAPI}}/register
+Content-Type: application/json
+
+{
+    "email": "testuser@test.com",
+    "password": "MyP@ssword123"
+}
+
+###
+
+POST {{RestaurantsAPI}}/login
+Content-Type: application/json
+
+{
+    "email": "testuser@test.com",
+    "password": "MyP@ssword123"
+}

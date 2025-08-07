@@ -1,5 +1,6 @@
 using Restaurants.API.Middleware;
 using Restaurants.Application.Extensions;
+using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
 using Scalar.AspNetCore;
@@ -53,6 +54,8 @@ app.UseMiddleware<TimeLoggingMiddleware>();
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+
+app.MapIdentityApi<User>();
 
 app.UseAuthorization();
 
