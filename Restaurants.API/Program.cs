@@ -1,3 +1,4 @@
+using Restaurants.API.Middleware;
 using Restaurants.Application.Extensions;
 using Restaurants.Infrastructure.Extensions;
 using Restaurants.Infrastructure.Seeders;
@@ -25,11 +26,10 @@ builder.Host.UseSerilog((context, cfg) =>
     //     .WriteTo.File("Logs/Restaurants-API-.log", rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
     //     .WriteTo.Console(outputTemplate: "[{Timestamp:dd-MM-yyyy HH:mm:ss} {Level:u3}] | {SourceContext} | {Message:lj}{NewLine}{Exception}")
 );
+// Add error handling middleware
+builder.Services.AddScoped<ErrorHandlingMiddleware>();
 
 var app = builder.Build();
-
-// Get more information about the http requests in the logs
-app.UseSerilogRequestLogging();
 
 // Seed DB
 var scope = app.Services.CreateScope();
@@ -42,6 +42,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+// Define Middleware pipiline to use in order
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
