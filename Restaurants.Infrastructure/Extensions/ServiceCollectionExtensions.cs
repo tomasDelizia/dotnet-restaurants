@@ -1,4 +1,3 @@
-using Azure.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +23,6 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IRestaurantSeeder, RestaurantSeeder>();
 
         // Add repositories
-        services.AddScoped<IRestaurantsRepository, RestaurantRepository>();
+        services.AddScoped<IRestaurantsRepository, RestaurantsRepository>();
     }
 }
