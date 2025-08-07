@@ -7,57 +7,52 @@ using Restaurants.Application.Restaurants.Dtos;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 
-namespace Restaurants.API.Controllers
+namespace Restaurants.API.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class RestaurantsController(IMediator mediator) : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RestaurantsController(IMediator mediator) : ControllerBase
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
     {
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
-        {
-            var query = new GetAllRestaurantsQuery();
-            var restaurants = await mediator.Send(query);
-            return Ok(restaurants);
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<RestaurantDto?>> GetById([FromRoute] Guid id)
-        {
-            var query = new GetRestaurantByIdQuery(id);
-            var restaurant = await mediator.Send(query);
-            return restaurant != null ? Ok(restaurant) : NotFound();
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateRestaurant([FromBody] CreateRestaurantCommand command)
-        {
-            Guid id = await mediator.Send(command);
-            // The created restaurant can be found at the GetById location
-            return CreatedAtAction(nameof(GetById), new { id }, null);
-        }
-
-        [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> DeleteRestaurant([FromRoute] Guid id)
-        {
-            var command = new DeleteRestaurantCommand(id);
-            await mediator.Send(command);
-            return NoContent();
-        }
-
-        [HttpPatch("{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateRestaurant(
-            [FromRoute] Guid id,
-            [FromBody] UpdateRestaurantCommand command)
-        {
-            command.Id = id;
-            await mediator.Send(command);
-            return NoContent();
-        }
+        var query = new GetAllRestaurantsQuery();
+        var restaurants = await mediator.Send(query);
+        return Ok(restaurants);
+    }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<RestaurantDto?>> GetById([FromRoute] Guid id)
+    {
+        var query = new GetRestaurantByIdQuery(id);
+        var restaurant = await mediator.Send(query);
+        return restaurant != null ? Ok(restaurant) : NotFound();
+    }
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<IActionResult> CreateRestaurant([FromBody] CreateRestaurantCommand command)
+    {
+        Guid id = await mediator.Send(command);
+        // The created restaurant can be found at the GetById location
+        return CreatedAtAction(nameof(GetById), new { id }, null);
+    }
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteRestaurant([FromRoute] Guid id)
+    {
+        var command = new DeleteRestaurantCommand(id);
+        await mediator.Send(command);
+        return NoContent();
+    }
+    [HttpPatch("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateRestaurant(
+        [FromRoute] Guid id,
+        [FromBody] UpdateRestaurantCommand command)
+    {
+        command.Id = id;
+        await mediator.Send(command);
+        return NoContent();
     }
 }
