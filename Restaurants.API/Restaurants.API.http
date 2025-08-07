@@ -55,3 +55,8 @@ Content-Type: application/json
     "Price": 13.99,
     "KiloCalories": 450
 }
+
+###
+
+GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes
+Accept: application/json
