@@ -43,3 +43,15 @@ Content-Type: application/json
     "Description": "A culinary experience like no other",
     "HasDelivery": false
 }
+
+###
+
+POST {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes
+Content-Type: application/json
+
+{
+    "Name": "Bolognese",
+    "Description": "With tomato sauce and meat",
+    "Price": 13.99,
+    "KiloCalories": 450
+}
