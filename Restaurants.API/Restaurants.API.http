@@ -60,3 +60,8 @@ Content-Type: application/json
 
 GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes
 Accept: application/json
+
+###
+
+GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes/3
+Accept: application/json
