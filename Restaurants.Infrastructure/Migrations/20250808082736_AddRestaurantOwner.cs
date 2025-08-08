@@ -17,6 +17,14 @@ namespace Restaurants.Infrastructure.Migrations
                 nullable: false,
                 defaultValue: "");
 
+            // Custom command to set a default owner to existing restaurants.
+            var selectAdmin = """
+                SELECT TOP 1 anu.Id
+                FROM AspNetUsers anu JOIN AspNetUserRoles anur on anu.Id = anur.UserId JOIN AspNetRoles anr on anr.Id = anur.RoleId
+                WHERE anr.Name = 'Admin'
+            """;
+            migrationBuilder.Sql($"UPDATE Restaurants SET OwnerId = ({selectAdmin})");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Restaurants_OwnerId",
                 table: "Restaurants",
