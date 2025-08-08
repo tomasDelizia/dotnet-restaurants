@@ -37,4 +37,12 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
     {
         await dbContext.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<Restaurant>?> GetAllOfOwnerAsync(string ownerId)
+    {
+        var owner = await dbContext.Users
+            .Include(u => u.OwnedRestaurants)
+            .FirstOrDefaultAsync(u => u.Id == ownerId);
+        return owner?.OwnedRestaurants;
+    }
 }

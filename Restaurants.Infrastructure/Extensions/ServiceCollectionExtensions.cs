@@ -44,10 +44,14 @@ public static class ServiceCollectionExtensions
             .AddPolicy(PolicyNames.IsArgentinian, builder => builder.RequireClaim(AppClaimTypes.Nationality, "Argentinian"))
             .AddPolicy(PolicyNames.IsAdult, builder => builder.AddRequirements(
                 new MinimumAgeRequirement(18)
+            ))
+            .AddPolicy(PolicyNames.HasRestaurants, builder => builder.AddRequirements(
+                new MinimumRestaurantsOwnedRequirement(1)
             ));
 
         // Add custom requirements
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+        services.AddScoped<IAuthorizationHandler, MinimumRestaurantsOwnedRequirementHandler>();
 
         // Add restaurant CRUD authorization logic
         services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
