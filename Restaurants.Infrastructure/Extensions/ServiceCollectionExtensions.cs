@@ -34,5 +34,9 @@ public static class ServiceCollectionExtensions
             .AddRoles<IdentityRole>()
             .AddClaimsPrincipalFactory<RestaurantsUserClaimsPrincipalFactory>()
             .AddEntityFrameworkStores<RestaurantsDbContext>();
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy(PolicyNames.HasNationality, builder => builder.RequireClaim(AppClaimTypes.Nationality))
+            .AddPolicy(PolicyNames.IsArgentinian, builder => builder.RequireClaim(AppClaimTypes.Nationality, "Argentinian"));
     }
 }
