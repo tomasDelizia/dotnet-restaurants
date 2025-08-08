@@ -22,7 +22,6 @@
   <ItemGroup>
     <Folder Include="Extensions/" />
     <Folder Include="Restaurants/Commands/CreateRestaurant/" />
-    <Folder Include="Restaurants/Queries/GetAllRestaurants/" />
     <Folder Include="Restaurants/Queries/GetRestaurantById/" />
   </ItemGroup>
 

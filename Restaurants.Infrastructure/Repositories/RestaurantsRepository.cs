@@ -12,14 +12,27 @@ internal class RestaurantsRepository(RestaurantsDbContext dbContext) : IRestaura
         return await dbContext.Restaurants.ToListAsync();
     }
 
-    public async Task<IEnumerable<Restaurant>> GetAllMatchingAsync(string? searchPhrase)
+    public async Task<(IEnumerable<Restaurant> restaurants, int totalCount)> GetAllMatchingAsync(
+        string? searchPhrase,
+        int pageNumber,
+        int pageSize)
     {
+        var offset = pageSize * (pageNumber - 1);
         var searchPhraseLower = searchPhrase?.ToLower();
-        return await dbContext.Restaurants
+
+        var query = dbContext.Restaurants
             .Where(r => string.IsNullOrEmpty(searchPhraseLower)
                 || r.Name.ToLower().Contains(searchPhraseLower)
-                || r.Description.ToLower().Contains(searchPhraseLower))
+                || r.Description.ToLower().Contains(searchPhraseLower));
+
+        var totalCount = await query.CountAsync();
+
+        var restaurants = await query
+            .Skip(offset)
+            .Take(pageSize)
             .ToListAsync();
+
+        return (restaurants, totalCount);
     }
 
     public async Task<Restaurant?> GetByIdAsync(Guid id)
