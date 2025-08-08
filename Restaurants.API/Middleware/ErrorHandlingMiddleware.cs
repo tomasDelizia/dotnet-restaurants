@@ -16,6 +16,12 @@ public class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : 
             context.Response.StatusCode = 404;
             await context.Response.WriteAsync(e.Message);
         }
+        catch (ForbiddenException e)
+        {
+            logger.LogWarning("Operation not allowed: {Message}", e.Message);
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync(e.Message);
+        }
         catch (Exception e)
         {
             logger.LogError(e, "An unexpected error ocurred: {Message}", e.Message);
