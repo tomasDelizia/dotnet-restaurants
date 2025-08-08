@@ -102,3 +102,25 @@ Authorization: Bearer {{token}}
     "DateOfBirth": "2001-05-29",
     "Nationality": "Argentinian"
 }
+
+###
+
+POST {{RestaurantsAPI}}/api/identity/user-role
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "UserEmail": "testuser@test.com",
+    "RoleName": "Owner"
+}
+
+###
+
+DELETE {{RestaurantsAPI}}/api/identity/user-role
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "UserEmail": "testuser@test.com",
+    "RoleName": "Owner"
+}
