@@ -14,7 +14,7 @@ public class GetAllRestaurantsQueryHandler(
     public async Task<IEnumerable<RestaurantDto>> Handle(GetAllRestaurantsQuery request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Getting all restaurants");
-        var restaurants = await restaurantsRepository.GetAllAsync();
+        var restaurants = await restaurantsRepository.GetAllMatchingAsync(request.SearchPhrase);
         // return restaurants.Select(RestaurantDto.FromEntity);
         return mapper.Map<IEnumerable<RestaurantDto>>(restaurants);
     }
