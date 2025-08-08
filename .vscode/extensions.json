@@ -6,7 +6,10 @@
 	"recommendations": [
 		"ms-dotnettools.csdevkit",
 		"jmrog.vscode-nuget-package-manager",
-		"humao.rest-client"
+		"humao.rest-client",
+        "formulahendry.dotnet",
+        "formulahendry.dotnet-test-explorer"
+
 	],
 	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
 	"unwantedRecommendations": [
