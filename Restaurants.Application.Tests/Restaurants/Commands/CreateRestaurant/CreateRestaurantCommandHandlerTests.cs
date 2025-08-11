@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
