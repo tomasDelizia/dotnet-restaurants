@@ -4,7 +4,7 @@ using Restaurants.Application.Users;
 
 namespace Restaurants.Infrastructure.Authorization.Requirements;
 
-public class MinimumAgeRequirementHandler(
+internal class MinimumAgeRequirementHandler(
     IUserContext userContext,
     ILogger<MinimumAgeRequirementHandler> logger
     ) : AuthorizationHandler<MinimumAgeRequirement>

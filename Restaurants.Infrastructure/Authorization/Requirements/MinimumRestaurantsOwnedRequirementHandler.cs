@@ -6,7 +6,7 @@ using Restaurants.Domain.Repositories;
 
 namespace Restaurants.Infrastructure.Authorization.Requirements;
 
-public class MinimumRestaurantsOwnedRequirementHandler(
+internal class MinimumRestaurantsOwnedRequirementHandler(
     IUserContext userContext,
     IRestaurantsRepository restaurantsRepository,
     ILogger<MinimumRestaurantsOwnedRequirementHandler> logger
