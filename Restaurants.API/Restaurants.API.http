@@ -2,25 +2,28 @@
 @port = 5026
 @RestaurantsAPI = {{host}}:{{port}}
 @restaurantId = 5a06b102-b6dc-466b-7489-08ddd4dbe6cb
-@token = 
+@token = CfDJ8Pujahkj34xCko1-pjMfjNTsIZITKsS_D4-biEPGnLOKDHUmF_KjetFIqjiW5ZWKXYlbjSBxnDcmVxZWs0Y12Z61flNfN5zhOVoWy3aCeMAz-Wiuu0J5BdkabAlKPhAJ83iHKWqAy7pFN_vHMzBSG94DbF8pYRVYvIlKZLhMBdt1ATzXrEPVFPldZ-6M2nBWsvqfGTQQyUCNPJBg_Mg-Jk5waGS59nkl4anmapXKjJq2sEpM6PciYutyrjSi4jzN07vktT7ZAqVfQ59Y-3iVdRlB3Ev8ygU875HMwgRdkxPRA_VJsBaIRe6RI9Z2vkBWDKgdtjypeAkyFxqY5qfPFTIWTnzFuadY9LmMM-sRXPRozNsLEz26sDbMgyiTsi311hX889MSQoQPs3mZC2-y11WIkwy8fsGPaeMHtIziOiqzsM4yrLCeaSH_QJaVz9Tki6nd0l0qQaJCCeTW4Uo8B59zqTCpUIHSmQX3Odf_AxuVAlsq-RuyWHf6IaNTWw2pgregWTRQrTOCbKnktOEM-t-o5rb6KUjsLaRk2YMfC5H7EgfLFLxSSrRsX6eFmYXx_-ljrrLM5Y02bNkgaEwsJJ72dMmQcDoDUPqjo38TTgxHhFHHvEj-NN_0b6gsAaraZVBYn_rBYHnRr6X1UShInotWOX-8WtdyZLIeBSdrdHm7CTy0gk41jFLTSz89dIJqsdDNAlXIN29fEevPVvHBBVuBhasxsu4sf0uw09VZazGjWus4iXlpP-2B_pyaQwk0F1uy2J3f_M1P3T8mIaCW6Y4EEOyVwtg2lzLvYMvtxqJBdZ0OtV_76-mSf6t_6vrm2d09djdLldTpAkkiWFxWSmtBly2F_DMhdJmXK3Ovj49Zg1Rwglma1WIwCzSW2o8BpFyLXU_qrhOOVsxsa7igeF-I1Xvc5t12w4skKGOkx2O_SRa9La9p26JqMHV5z28crkbcMejRTaX9e59Ypf-EO3XtV_6Q5UKXd3kcd7qzpWO1
 
-GET {{RestaurantsAPI}}/api/restaurants
+GET {{RestaurantsAPI}}/api/restaurants?searchPhrase=&pageNumber=1&pageSize=10&sortBy=Name&sortDirection=Descending
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
 POST {{RestaurantsAPI}}/api/restaurants
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-    "Name": "Gino's",
-    "Description": "A culinary experience like no other",
-    "Category": "Italian",
+    "Name": "VIPS",
+    "Description": "Terrible food",
+    "Category": "American",
     "HasDelivery": true,
     "ContactEmail": "info@gourmetdelights.com",
     "ContactNumber": "555-123-4567",
@@ -31,12 +34,16 @@ Content-Type: application/json
 
 ###
 
-DELETE {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
+DELETE {{RestaurantsAPI}}/api/restaurants/799d8f03-4451-47bf-4501-08ddd5b0a30f
+#{{restaurantId}}
+Authorization: Bearer {{token}}
 Accept: application/json
 
 ###
 
-PATCH {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}
+PATCH {{RestaurantsAPI}}/api/restaurants/799d8f03-4451-47bf-4501-08ddd5b0a30f
+#{{restaurantId}}
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -61,6 +68,7 @@ Content-Type: application/json
 
 GET {{RestaurantsAPI}}/api/restaurants/{{restaurantId}}/dishes
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ###
 
@@ -78,7 +86,7 @@ POST {{RestaurantsAPI}}/api/identity/register
 Content-Type: application/json
 
 {
-    "email": "testuser@test.com",
+    "email": "admin@test.com",
     "password": "MyP@ssword123"
 }
 
@@ -88,7 +96,7 @@ POST {{RestaurantsAPI}}/api/identity/login
 Content-Type: application/json
 
 {
-    "email": "testuser@test.com",
+    "email": "admin@test.com",
     "password": "MyP@ssword123"
 }
 
@@ -99,8 +107,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "DateOfBirth": "2001-05-29",
-    "Nationality": "Argentinian"
+    "DateOfBirth": "2011-05-29",
+    "Nationality": "Polish"
 }
 
 ###
