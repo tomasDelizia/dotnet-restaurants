@@ -62,3 +62,7 @@ dotnet run
 ## Useful Links
 
 - [Microsoft Docs: User Secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets)
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
