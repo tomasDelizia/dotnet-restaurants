@@ -40,7 +40,7 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<YourConnectionSt
 
 ### 5. Add License Key
 
-Replace `<YourLicenseKey>` with your actual License key from [LuckyPennySoftware](https://www.luckypennysoftware.com/).
+Replace `<YourLicenseKey>` with your actual License key from [LuckyPennySoftware](https://luckypennysoftware.com/).
 
 ```bash
 dotnet user-secrets set "LuckyPennySoftware:LicenseKey" "<YourLicenseKey>"
