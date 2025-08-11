@@ -8,7 +8,7 @@
             "name": "C# Restaurants.API",
             "type": "dotnet",
             "request": "launch",
-            "projectPath": "${workspaceFolder}/Restaurants.API/Restaurants.API.csproj"
+            "projectPath": "${workspaceFolder}/src/Restaurants.API/Restaurants.API.csproj"
         }      
     ]
 }

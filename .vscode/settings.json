@@ -1,4 +1,5 @@
 {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "EditorConfig.EditorConfig"
+    "editor.defaultFormatter": "EditorConfig.EditorConfig",
+    "dotnet-test-explorer.testProjectPath": "tests/",
 }
