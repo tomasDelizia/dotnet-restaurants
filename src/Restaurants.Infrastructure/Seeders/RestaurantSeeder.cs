@@ -43,9 +43,15 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
         ];
 
     private static IEnumerable<Restaurant> GetRestaurants()
-    => [
+    {
+        var owner = new User
+        {
+            Email = "seed-user@test.com"
+        };
+        return [
             new()
             {
+                Owner = owner,
                 Name = "KFC",
                 Category = "Fast Food",
                 Description =
@@ -78,6 +84,7 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
             },
             new ()
             {
+                Owner = owner,
                 Name = "McDonald",
                 Category = "Fast Food",
                 Description =
@@ -92,4 +99,5 @@ internal class RestaurantSeeder(RestaurantsDbContext dbContext) : IRestaurantSee
                 }
             }
         ];
+    }
 }
