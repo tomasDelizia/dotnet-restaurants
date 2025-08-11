@@ -7,48 +7,59 @@ using Restaurants.Infrastructure.Seeders;
 using Scalar.AspNetCore;
 using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-var config = builder.Configuration;
-// Register the presentation services
-builder.AddPresentation();
-// Register the application services
-builder.Services.AddApplicationServices(config);
-// Register the infrastructure services
-builder.Services.AddInfrastructure(config);
-
-var app = builder.Build();
-
-// Seed DB
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantSeeder>();
-await seeder.Seed();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.MapOpenApi();
-    app.MapScalarApiReference(options => options.AddPreferredSecuritySchemes("Bearer"));
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+    var config = builder.Configuration;
+    // Register the presentation services
+    builder.AddPresentation();
+    // Register the application services
+    builder.Services.AddApplicationServices(config);
+    // Register the infrastructure services
+    builder.Services.AddInfrastructure(config);
+
+    var app = builder.Build();
+
+    // Seed DB
+    var scope = app.Services.CreateScope();
+    var seeder = scope.ServiceProvider.GetRequiredService<IRestaurantSeeder>();
+    await seeder.Seed();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+        app.MapScalarApiReference(options => options.AddPreferredSecuritySchemes("Bearer"));
+    }
+
+    // Define Middleware pipiline to use in order
+
+    app.UseMiddleware<ErrorHandlingMiddleware>();
+
+    app.UseMiddleware<TimeLoggingMiddleware>();
+
+    app.UseSerilogRequestLogging();
+
+    app.UseHttpsRedirection();
+
+    app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
+
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.Run();
 }
-
-// Define Middleware pipiline to use in order
-
-app.UseMiddleware<ErrorHandlingMiddleware>();
-
-app.UseMiddleware<TimeLoggingMiddleware>();
-
-app.UseSerilogRequestLogging();
-
-app.UseHttpsRedirection();
-
-app.MapGroup("api/identity").WithTags("Identity").MapIdentityApi<User>();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception e)
+{
+    Log.Fatal(e, "Application startup failed");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
 // For testing purposes
 public partial class Program { }
