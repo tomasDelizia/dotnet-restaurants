@@ -2,6 +2,14 @@
 
 This guide will help you set up the .NET environment for the Restaurants project, including initializing user-secrets and configuring connection strings and API keys.
 
+## Technologies
+
+- [.NET 9](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/)
+- [Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/)
+- [Azure SQL Database](https://docs.microsoft.com/en-us/azure/sql-database/)
+- [Azure Application Insights](https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)
+
 ## Prerequisites
 
 - [.NET SDK](https://dotnet.microsoft.com/download) installed
@@ -46,9 +54,16 @@ Replace `<YourLicenseKey>` with your actual License key from [LuckyPennySoftware
 dotnet user-secrets set "LuckyPennySoftware:LicenseKey" "<YourLicenseKey>"
 ```
 
+### 6. Add Telemetry
+
+Replace `<YourInstrumentationKey>` with your actual Azure Application Insights connection string.
+
+```bash
+dotnet user-secrets set "ApplicationInsights:InstrumentationKey" "<YourInstrumentationKey>"
+```
 
 
-### 6. Run the Application
+### 7. Run the Application
 
 ```bash
 dotnet run
