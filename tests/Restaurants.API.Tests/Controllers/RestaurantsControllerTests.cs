@@ -9,12 +9,14 @@ using Moq;
 using Restaurants.Application.Restaurants.Dtos;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Repositories;
+using Restaurants.Infrastructure.Seeders;
 
 namespace Restaurants.API.Tests.Controllers;
 
 public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly Mock<IRestaurantsRepository> _restaurantsRepositoryMock = new();
+    private readonly Mock<IRestaurantSeeder> _restaurantSeederMock = new();
     private readonly WebApplicationFactory<Program> _factory;
 
     public RestaurantsControllerTests(WebApplicationFactory<Program> factory)
@@ -25,10 +27,12 @@ public class RestaurantsControllerTests : IClassFixture<WebApplicationFactory<Pr
             {
                 // Autenticate and authorize all requests.
                 services.AddSingleton<IPolicyEvaluator, FakePolicyEvaluator>();
-                // Replace actual Database Repository with mock.
+                // Replace actual Database Repository and Seeder with mock.
                 services
                     .Replace(ServiceDescriptor
-                        .Scoped(typeof(IRestaurantsRepository), _ => _restaurantsRepositoryMock.Object));
+                        .Scoped(typeof(IRestaurantsRepository), _ => _restaurantsRepositoryMock.Object))
+                    .Replace(ServiceDescriptor
+                        .Scoped(typeof(IRestaurantSeeder), _ => _restaurantSeederMock.Object));
             });
         });
     }
