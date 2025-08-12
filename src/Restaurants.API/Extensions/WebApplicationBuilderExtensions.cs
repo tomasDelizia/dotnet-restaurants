@@ -18,10 +18,10 @@ public static class WebApplicationBuilderExtensions
         builder.Host.UseSerilog((context, cfg) =>
         // Retrieve from appsettings.Development.json
                 cfg.ReadFrom.Configuration(config)
-                    .WriteTo.ApplicationInsights(
-                    config["ApplicationInsights:ConnectionString"],
-                    new Serilog.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter()
-                )
+                //     .WriteTo.ApplicationInsights(
+                //     config["ApplicationInsights:ConnectionString"],
+                //     new Serilog.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter()
+                // )
         );
         // Add error handling middleware
         builder.Services.AddScoped<ErrorHandlingMiddleware>();
