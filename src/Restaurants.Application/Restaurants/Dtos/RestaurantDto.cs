@@ -14,6 +14,7 @@ public class RestaurantDto
     public string? Street { get; set; }
     public string? PostalCode { get; set; }
     public List<DishDto> Dishes { get; set; } = [];
+    public string? LogoUrl { get; set; }
 
     public static RestaurantDto FromEntity(Restaurant restaurant)
     {
