@@ -63,10 +63,11 @@ dotnet user-secrets set "ApplicationInsights:ConnectionString" "<YourInstrumenta
 ```
 
 ### 7. Add Blob Storage Connection
-Replace `<YourBlobStorageConnectionString>` with your actual Azure Blob Storage connection string.
+Replace `<YourBlobStorageConnectionString>` & `<YourBlobStorageAccountKey>` with your actual Azure Blob Storage connection string and account key.
 
 ```bash
 dotnet user-secrets set "StorageAccount:ConnectionString" "<YourBlobStorageConnectionString>"
+dotnet user-secrets set "StorageAccount:AccountKey" "<YourBlobStorageAccountKey>"
 ```
 
 
