@@ -16,12 +16,17 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddOpenApi();
         // Add logging
         builder.Host.UseSerilog((context, cfg) =>
-        // Retrieve from appsettings.Development.json
-                cfg.ReadFrom.Configuration(config)
-                //     .WriteTo.ApplicationInsights(
-                //     config["ApplicationInsights:ConnectionString"],
-                //     new Serilog.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter()
-                // )
+        {
+            // Retrieve from appsettings.Development.json
+            cfg.ReadFrom.Configuration(config);
+            var instrumentationKey = config["ApplicationInsights:ConnectionString"];
+            if (!string.IsNullOrEmpty(instrumentationKey))
+            {
+                cfg.WriteTo.ApplicationInsights(
+                    instrumentationKey,
+                    new Serilog.Sinks.ApplicationInsights.TelemetryConverters.TraceTelemetryConverter());
+            }
+        }
         );
         // Add error handling middleware
         builder.Services.AddScoped<ErrorHandlingMiddleware>();
