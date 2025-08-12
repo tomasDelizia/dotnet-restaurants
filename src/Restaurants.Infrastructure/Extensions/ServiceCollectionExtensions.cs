@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,11 @@ using Restaurants.Domain.Repositories;
 using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Authorization.Requirements;
 using Restaurants.Infrastructure.Authorization.Services;
+using Restaurants.Infrastructure.Configuration;
 using Restaurants.Infrastructure.Persistance;
 using Restaurants.Infrastructure.Repositories;
 using Restaurants.Infrastructure.Seeders;
+using Restaurants.Infrastructure.Storage;
 
 namespace Restaurants.Infrastructure.Extensions;
 
@@ -55,6 +58,10 @@ public static class ServiceCollectionExtensions
 
         // Add restaurant CRUD authorization logic
         services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
+
+        // Add blob storage. Maps the BlobStorage section to a BlobStorageSettings object.
+        services.Configure<BlobStorageSettings>(configuration.GetSection("StorageAccount"));
+        services.AddScoped<IBlobStorageService, BlobStorageService>();
 
     }
 }
