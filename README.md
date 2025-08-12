@@ -56,14 +56,21 @@ dotnet user-secrets set "LuckyPennySoftware:LicenseKey" "<YourLicenseKey>"
 
 ### 6. Add Telemetry
 
-Replace `<YourInstrumentationKey>` with your actual Azure Application Insights connection string.
+Set the Environment Variable APPLICATIONINSIGHTS_CONNECTION_STRING with your actual Azure Application Insights connection string. You can also set it as a user secret.
 
 ```bash
-dotnet user-secrets set "ApplicationInsights:InstrumentationKey" "<YourInstrumentationKey>"
+dotnet user-secrets set "ApplicationInsights:ConnectionString" "<YourInstrumentationKey>"
+```
+
+### 7. Add Blob Storage Connection
+Replace `<YourBlobStorageConnectionString>` with your actual Azure Blob Storage connection string.
+
+```bash
+dotnet user-secrets set "StorageAccount:ConnectionString" "<YourBlobStorageConnectionString>"
 ```
 
 
-### 7. Run the Application
+### 8. Run the Application
 
 ```bash
 dotnet run
